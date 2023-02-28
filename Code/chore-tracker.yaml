@@ -1,0 +1,123 @@
+i2c:
+  id: bus
+  scan: false
+
+mcp23008:
+  - id: 'mcp23008_hub'
+    address: 0x20
+
+binary_sensor:
+  - platform: gpio
+    id: button1
+    pin:
+      mcp23xxx: mcp23008_hub
+      number: 0
+      mode:
+          input: true
+          pullup: true
+      inverted: true
+  - platform: gpio
+    id: button2
+    pin:
+      mcp23xxx: mcp23008_hub
+      number: 1
+      mode:
+          input: true
+          pullup: true
+      inverted: true
+  - platform: gpio
+    id: button3
+    pin:
+      mcp23xxx: mcp23008_hub
+      number: 2
+      mode:
+        input: true
+        pullup: true
+      inverted: true
+  - platform: gpio
+    id: button4
+    pin:
+      mcp23xxx: mcp23008_hub
+      number: 3
+      mode:
+          input: true
+          pullup: true
+      inverted: true
+  - platform: gpio
+    id: button5
+    pin:
+      mcp23xxx: mcp23008_hub
+      number: 4
+      mode:
+          input: true
+          pullup: true
+      inverted: true
+
+light:
+    - platform: neopixelbus
+      variant: WS2812
+      pin: D3
+      num_leds: 5
+      id: leds
+      restore_mode: ALWAYS_OFF
+    
+    - platform: partition
+      id: led1
+      restore_mode: ALWAYS_OFF
+      segments:
+        - id: leds
+          from: 0
+          to: 0
+    - platform: partition
+      id: led2
+      restore_mode: ALWAYS_OFF
+      segments:
+        - id: leds
+          from: 1
+          to: 1
+    - platform: partition
+      id: led3
+      restore_mode: ALWAYS_OFF
+      segments:
+        - id: leds
+          from: 2
+          to: 2
+    - platform: partition
+      id: led4
+      restore_mode: ALWAYS_OFF
+      segments:
+        - id: leds
+          from: 3
+          to: 3
+    - platform: partition
+      id: led5
+      restore_mode: ALWAYS_OFF
+      segments:
+        - id: leds
+          from: 4
+          to: 4
+
+sensor:
+  - platform: dht
+    pin: D4
+    temperature:
+        name: Temperature
+        filters:
+            - lambda: return x * (9.0/5.0) + 32.0;
+            - exponential_moving_average:
+            - or:
+                - throttle: 5min
+                - delta: 1
+            - throttle: 15s
+        unit_of_measurement: "°F"
+        accuracy_decimals: 1
+    humidity:
+        name: Humidity
+        accuracy_decimals: 1
+        filters:
+            - exponential_moving_average:
+            - or:
+                - throttle: 5min
+                - delta: 1
+    model: AM2302
+    update_interval: 2s
