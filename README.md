@@ -17,3 +17,22 @@ The body is deep enough to comfortably hold all the components as well as a gene
 ## PCB
 
 When soldering the PCB, don't skimp out on the pin sockets. Both the ground and power planes are directly under the antenna, which isn't a performance issue if you use the pin sockets to get enough of a separation. I don't know how it might work if you solder it directly to the board.
+
+## BOM
+
+|Qty|Description|P/N|
+|-|-|-|
+|1|PCB|
+1|Printed case
+1|USB power cable|
+|3|JST connector, 1x3, 2.54mm pitch
+|3|JST PCB header, 1x3, 2.54mm pitch
+6|JST connector, 1x2, 2.54mm pitch
+6|JST PCB header, 1x2, 2.54mm pitch
+1|esp8266 microcontroller|WeMos D1 mini
+1|I<sup>2</sup>C I/O expander|MCP23008
+1|DIP18 IC socket
+2|10k resistor, 1/4 W, axial, len: 9.0mm, dia: 3.2mm
+5|SPST momentary push button, 6mm cap, 6.9mm thread
+5|WS2812B 5050 neopixel LEDs with PCB|
+1|DHT22 compatible temperature & humidity sensor|AM2302
